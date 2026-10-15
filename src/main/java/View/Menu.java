@@ -297,12 +297,6 @@ public class Menu {
                 sepatu,
                 transaksi)) {
 
-            /*
-             * Masukkan juga ke controller agar fitur
-             * lama yang masih menggunakan controller
-             * tetap berjalan dalam sesi program.
-             */
-
             controller.tambah(transaksi);
 
             System.out.println(
@@ -659,10 +653,7 @@ public class Menu {
             if (transaksiDao.hapus(
                     t.getIdTransaksi())) {
 
-                /*
-                 * Hapus juga dari controller jika
-                 * data tersebut masih ada di dalamnya.
-                 */
+        
 
                 controller.hapus(
                         t.getIdTransaksi()
