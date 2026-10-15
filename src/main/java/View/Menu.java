@@ -1,6 +1,7 @@
 package View;
 
 import Controller.TransaksiController;
+import Dao.TransaksiDao;
 import Model.Pelanggan;
 import Model.Sepatu;
 import Model.SepatuBoot;
@@ -9,6 +10,7 @@ import Model.Transaksi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -17,7 +19,11 @@ public class Menu {
     private final Scanner input;
     private final String role;
 
-    public Menu(TransaksiController controller, String role, Scanner input) {
+    public Menu(
+            TransaksiController controller,
+            String role,
+            Scanner input) {
+
         this.controller = controller;
         this.role = role;
         this.input = input;
@@ -32,12 +38,13 @@ public class Menu {
         }
     }
 
-// menu adminnnnnnn
+
     private void tampilkanMenuAdmin() {
 
         int pilihan;
 
         do {
+
             System.out.println("\n========================================");
             System.out.println("     SISTEM MANAJEMEN JASA CUCI SEPATU");
             System.out.println("========================================");
@@ -52,7 +59,11 @@ public class Menu {
             System.out.println("7. Keluar");
             System.out.println("========================================");
 
-            pilihan = inputPilihan(1, 7, "Pilih menu: ");
+            pilihan = inputPilihan(
+                    1,
+                    7,
+                    "Pilih menu: "
+            );
 
             switch (pilihan) {
 
@@ -82,19 +93,21 @@ public class Menu {
 
                 case 7:
                     System.out.println(
-                            "Terima kasih telah menggunakan program.");
+                            "Terima kasih telah menggunakan program."
+                    );
                     break;
             }
 
         } while (pilihan != 7);
     }
-// menu kasirrr
+
 
     private void tampilkanMenuKasir() {
 
         int pilihan;
 
         do {
+
             System.out.println("\n========================================");
             System.out.println("     SISTEM MANAJEMEN JASA CUCI SEPATU");
             System.out.println("========================================");
@@ -106,7 +119,11 @@ public class Menu {
             System.out.println("4. Keluar");
             System.out.println("========================================");
 
-            pilihan = inputPilihan(1, 4, "Pilih menu: ");
+            pilihan = inputPilihan(
+                    1,
+                    4,
+                    "Pilih menu: "
+            );
 
             switch (pilihan) {
 
@@ -124,7 +141,8 @@ public class Menu {
 
                 case 4:
                     System.out.println(
-                            "Terima kasih telah menggunakan program.");
+                            "Terima kasih telah menggunakan program."
+                    );
                     break;
             }
 
@@ -136,112 +154,183 @@ public class Menu {
 
         System.out.println("\n========== TAMBAH DATA ==========");
 
-        String idPelanggan = controller.generateIdPelanggan();
-        String idSepatu = controller.generateIdSepatu();
-        String idTransaksi = controller.generateIdTransaksi();
 
-        System.out.println("ID Pelanggan : " + idPelanggan);
-        System.out.println("ID Sepatu    : " + idSepatu);
-        System.out.println("ID Transaksi : " + idTransaksi);
+        TransaksiDao transaksiDao =
+                new TransaksiDao();
 
-        String nama = inputNama("Nama Pelanggan: ");
-        String telepon = inputTelepon("No. Telepon: ");
-        String alamat = inputAlamat("Alamat: ");
+        String idPelanggan =
+                transaksiDao.generateIdPelanggan();
+
+        String idSepatu =
+                transaksiDao.generateIdSepatu();
+
+        String idTransaksi =
+                transaksiDao.generateIdTransaksi();
+
+        System.out.println(
+                "ID Pelanggan : " + idPelanggan
+        );
+
+        System.out.println(
+                "ID Sepatu    : " + idSepatu
+        );
+
+        System.out.println(
+                "ID Transaksi : " + idTransaksi
+        );
+
+
+        String nama =
+                inputNama("Nama Pelanggan: ");
+
+        String telepon =
+                inputTelepon("No. Telepon: ");
+
+        String alamat =
+                inputAlamat("Alamat: ");
+
 
         System.out.println("\nJenis Sepatu");
         System.out.println("1. Sneakers");
         System.out.println("2. Boots");
 
-        int jenis = inputPilihan(
-                1,
-                2,
-                "Pilih jenis sepatu: "
-        );
+        int jenis =
+                inputPilihan(
+                        1,
+                        2,
+                        "Pilih jenis sepatu: "
+                );
 
-        String merek = inputTeks(
-                "Merek Sepatu: ",
-                "Merek"
-        );
+        String merek =
+                inputTeks(
+                        "Merek Sepatu: ",
+                        "Merek"
+                );
 
-        String warna = inputTeks(
-                "Warna Sepatu: ",
-                "Warna"
-        );
+        String warna =
+                inputTeks(
+                        "Warna Sepatu: ",
+                        "Warna"
+                );
+
 
         System.out.println("\nJenis Layanan");
         System.out.println("1. Fast Clean - Rp20000");
         System.out.println("2. Deep Clean - Rp35000");
 
-        int layanan = inputPilihan(
-                1,
-                2,
-                "Pilih layanan: "
-        );
+        int layanan =
+                inputPilihan(
+                        1,
+                        2,
+                        "Pilih layanan: "
+                );
 
-        String namaLayanan =
-                layanan == 1
-                ? "Fast Clean"
-                : "Deep Clean";
+        String namaLayanan;
+        int harga;
 
-        int harga =
-                layanan == 1
-                ? 20000
-                : 35000;
+        if (layanan == 1) {
 
-        String tanggal = LocalDate.now().format(
-                DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        );
+            namaLayanan = "Fast Clean";
+            harga = 20000;
 
-        Pelanggan pelanggan = new Pelanggan(
-                idPelanggan,
-                nama,
-                telepon,
-                alamat,
-                false
-        );
+        } else {
+
+            namaLayanan = "Deep Clean";
+            harga = 35000;
+        }
+
+
+        String tanggal =
+                LocalDate.now().format(
+                        DateTimeFormatter.ofPattern(
+                                "dd-MM-yyyy"
+                        )
+                );
+
+
+        Pelanggan pelanggan =
+                new Pelanggan(
+                        idPelanggan,
+                        nama,
+                        telepon,
+                        alamat,
+                        false
+                );
+
 
         Sepatu sepatu;
 
         if (jenis == 1) {
 
-            sepatu = new SepatuSneakers(
-                    idSepatu,
-                    merek,
-                    warna
-            );
+            sepatu =
+                    new SepatuSneakers(
+                            idSepatu,
+                            merek,
+                            warna
+                    );
 
         } else {
 
-            sepatu = new SepatuBoot(
-                    idSepatu,
-                    merek,
-                    warna
-            );
+            sepatu =
+                    new SepatuBoot(
+                            idSepatu,
+                            merek,
+                            warna
+                    );
         }
 
-        Transaksi transaksi = new Transaksi(
-                idTransaksi,
+
+        Transaksi transaksi =
+                new Transaksi(
+                        idTransaksi,
+                        pelanggan,
+                        sepatu,
+                        namaLayanan,
+                        harga,
+                        tanggal,
+                        "Menunggu"
+                );
+
+
+        if (transaksiDao.tambah(
                 pelanggan,
                 sepatu,
-                namaLayanan,
-                harga,
-                tanggal,
-                "Menunggu"
-        );
+                transaksi)) {
 
-        if (controller.tambah(transaksi)) {
+            /*
+             * Masukkan juga ke controller agar fitur
+             * lama yang masih menggunakan controller
+             * tetap berjalan dalam sesi program.
+             */
 
-            System.out.println("\nData berhasil ditambahkan!");
+            controller.tambah(transaksi);
+
+            System.out.println(
+                    "\nData berhasil ditambahkan!"
+            );
+
 
             if (transaksi.getPersentaseDiskon() > 0) {
 
-                System.out.println("\n========================================");
-                System.out.println("             SURPRISE PROMO!");
-                System.out.println("========================================");
+                System.out.println(
+                        "\n========================================"
+                );
 
-                if (transaksi.getPersentaseDiskon() == 10) {
+                System.out.println(
+                        "             SURPRISE PROMO!"
+                );
 
-                    System.out.println("Wow, kamu beruntung!");
+                System.out.println(
+                        "========================================"
+                );
+
+                if (transaksi.getPersentaseDiskon()
+                        == 10) {
+
+                    System.out.println(
+                            "Wow, kamu beruntung!"
+                    );
+
                     System.out.println(
                             "Kamu mendapatkan diskon 10%!"
                     );
@@ -253,7 +342,10 @@ public class Menu {
                     );
                 }
 
-                System.out.println("----------------------------------------");
+                System.out.println(
+                        "----------------------------------------"
+                );
+
                 System.out.println(
                         "Harga Awal  : Rp"
                         + transaksi.getHarga()
@@ -274,7 +366,9 @@ public class Menu {
                         + (int) transaksi.getTotalHarga()
                 );
 
-                System.out.println("========================================");
+                System.out.println(
+                        "========================================"
+                );
 
             } else {
 
@@ -288,7 +382,10 @@ public class Menu {
                 );
             }
 
-            System.out.println("\nDetail Transaksi:");
+            System.out.println(
+                    "\nDetail Transaksi:"
+            );
+
             transaksi.tampilkanData(true);
 
         } else {
@@ -299,13 +396,20 @@ public class Menu {
         }
     }
 
+
     private void lihatData() {
 
         System.out.println(
                 "\n========== DATA TRANSAKSI =========="
         );
 
-        if (controller.getDaftarTransaksi().isEmpty()) {
+        TransaksiDao transaksiDao =
+                new TransaksiDao();
+
+        ArrayList<Transaksi> daftarTransaksi =
+                transaksiDao.getAll();
+
+        if (daftarTransaksi.isEmpty()) {
 
             System.out.println(
                     "Belum ada data transaksi."
@@ -314,8 +418,8 @@ public class Menu {
             return;
         }
 
-        for (Transaksi transaksi
-                : controller.getDaftarTransaksi()) {
+        for (Transaksi transaksi :
+                daftarTransaksi) {
 
             System.out.println(
                     "\n----------------------------------------"
@@ -325,9 +429,17 @@ public class Menu {
         }
     }
 
+
     private Transaksi pilihTransaksi() {
 
-        if (controller.getDaftarTransaksi().isEmpty()) {
+
+        TransaksiDao transaksiDao =
+                new TransaksiDao();
+
+        ArrayList<Transaksi> daftarTransaksi =
+                transaksiDao.getAll();
+
+        if (daftarTransaksi.isEmpty()) {
 
             System.out.println(
                     "Belum ada data transaksi."
@@ -341,11 +453,11 @@ public class Menu {
         );
 
         for (int i = 0;
-                i < controller.getDaftarTransaksi().size();
+                i < daftarTransaksi.size();
                 i++) {
 
             Transaksi t =
-                    controller.getDaftarTransaksi().get(i);
+                    daftarTransaksi.get(i);
 
             System.out.println(
                     (i + 1)
@@ -362,18 +474,20 @@ public class Menu {
 
         System.out.println("0. Kembali");
 
-        int pilihan = inputPilihan(
-                0,
-                controller.getDaftarTransaksi().size(),
-                "Pilih transaksi: "
-        );
+        int pilihan =
+                inputPilihan(
+                        0,
+                        daftarTransaksi.size(),
+                        "Pilih transaksi: "
+                );
 
         if (pilihan == 0) {
             return null;
         }
 
-        return controller.getDaftarTransaksi()
-                .get(pilihan - 1);
+        return daftarTransaksi.get(
+                pilihan - 1
+        );
     }
 
 
@@ -383,13 +497,15 @@ public class Menu {
                 "\n========== UBAH STATUS =========="
         );
 
-        Transaksi t = pilihTransaksi();
+        Transaksi t =
+                pilihTransaksi();
 
         if (t == null) {
             return;
         }
 
-        String status = t.getStatus();
+        String status =
+                t.getStatus();
 
         if (status.equalsIgnoreCase("Diambil")
                 || status.equalsIgnoreCase("Batal")) {
@@ -403,23 +519,78 @@ public class Menu {
         }
 
         System.out.println(
-                "Status saat ini: " + status
+                "Status saat ini: "
+                + status
         );
+
+        String statusBaru;
 
         if (status.equalsIgnoreCase("Menunggu")) {
 
             System.out.println("1. Diproses");
             System.out.println("2. Batal");
 
-        } else if (status.equalsIgnoreCase("Diproses")) {
+            int pilihan =
+                    inputPilihan(
+                            1,
+                            2,
+                            "Pilih status: "
+                    );
+
+            if (pilihan == 1) {
+
+                statusBaru = "Diproses";
+
+            } else {
+
+                statusBaru = "Batal";
+            }
+
+        } else if (
+                status.equalsIgnoreCase("Diproses")
+        ) {
 
             System.out.println("1. Selesai");
             System.out.println("2. Batal");
 
-        } else if (status.equalsIgnoreCase("Selesai")) {
+            int pilihan =
+                    inputPilihan(
+                            1,
+                            2,
+                            "Pilih status: "
+                    );
+
+            if (pilihan == 1) {
+
+                statusBaru = "Selesai";
+
+            } else {
+
+                statusBaru = "Batal";
+            }
+
+        } else if (
+                status.equalsIgnoreCase("Selesai")
+        ) {
 
             System.out.println("1. Diambil");
             System.out.println("2. Batal");
+
+            int pilihan =
+                    inputPilihan(
+                            1,
+                            2,
+                            "Pilih status: "
+                    );
+
+            if (pilihan == 1) {
+
+                statusBaru = "Diambil";
+
+            } else {
+
+                statusBaru = "Batal";
+            }
 
         } else {
 
@@ -430,42 +601,23 @@ public class Menu {
             return;
         }
 
-        int pilihan = inputPilihan(
-                1,
-                2,
-                "Pilih status: "
-        );
 
-        if (pilihan == 2) {
+        TransaksiDao transaksiDao =
+                new TransaksiDao();
 
-            t.setStatus("Batal");
+        if (transaksiDao.updateStatus(
+                t.getIdTransaksi(),
+                statusBaru)) {
 
             System.out.println(
-                    "Transaksi berhasil dibatalkan."
-            );
-
-        } else if (status.equalsIgnoreCase("Menunggu")) {
-
-            t.setStatus("Diproses");
-
-            System.out.println(
-                    "Status berhasil diubah menjadi Diproses."
-            );
-
-        } else if (status.equalsIgnoreCase("Diproses")) {
-
-            t.setStatus("Selesai");
-
-            System.out.println(
-                    "Status berhasil diubah menjadi Selesai."
+                    "Status berhasil diubah menjadi "
+                    + statusBaru + "."
             );
 
         } else {
 
-            t.setStatus("Diambil");
-
             System.out.println(
-                    "Status berhasil diubah menjadi Diambil."
+                    "Status gagal diubah."
             );
         }
     }
@@ -477,7 +629,8 @@ public class Menu {
                 "\n========== HAPUS DATA =========="
         );
 
-        Transaksi t = pilihTransaksi();
+        Transaksi t =
+                pilihTransaksi();
 
         if (t == null) {
             return;
@@ -493,17 +646,30 @@ public class Menu {
             return;
         }
 
-        String jawaban = inputKonfirmasi(
-                "Yakin ingin menghapus? (Y/T): "
-        );
+        String jawaban =
+                inputKonfirmasi(
+                        "Yakin ingin menghapus? (Y/T): "
+                );
 
         if (jawaban.equals("Y")) {
 
-            if (controller.hapus(
+            TransaksiDao transaksiDao =
+                    new TransaksiDao();
+
+            if (transaksiDao.hapus(
                     t.getIdTransaksi())) {
 
+                /*
+                 * Hapus juga dari controller jika
+                 * data tersebut masih ada di dalamnya.
+                 */
+
+                controller.hapus(
+                        t.getIdTransaksi()
+                );
+
                 System.out.println(
-                        "Data berhasil dihapus."
+                        "Data berhasil dihapus dari database."
                 );
 
             } else {
@@ -527,9 +693,34 @@ public class Menu {
                 "\n========== CARI DATA =========="
         );
 
-        Transaksi t = pilihTransaksi();
+        System.out.print(
+                "Masukkan ID transaksi atau nama pelanggan: "
+        );
 
-        if (t == null) {
+        String keyword =
+                input.nextLine().trim();
+
+        if (keyword.isEmpty()) {
+
+            System.out.println(
+                    "Kata pencarian tidak boleh kosong."
+            );
+
+            return;
+        }
+
+        TransaksiDao transaksiDao =
+                new TransaksiDao();
+
+        ArrayList<Transaksi> hasil =
+                transaksiDao.cari(keyword);
+
+        if (hasil.isEmpty()) {
+
+            System.out.println(
+                    "Data tidak ditemukan."
+            );
+
             return;
         }
 
@@ -537,7 +728,15 @@ public class Menu {
                 "\nData ditemukan:"
         );
 
-        t.tampilkanData(true);
+        for (Transaksi transaksi :
+                hasil) {
+
+            System.out.println(
+                    "\n----------------------------------------"
+            );
+
+            transaksi.tampilkanData(true);
+        }
     }
 
     private void cetakStruk() {
@@ -546,13 +745,15 @@ public class Menu {
                 "\n========== CETAK STRUK =========="
         );
 
-        Transaksi t = pilihTransaksi();
+        Transaksi t =
+                pilihTransaksi();
 
         if (t == null) {
             return;
         }
 
-        if (!t.getStatus().equalsIgnoreCase("Diambil")) {
+        if (!t.getStatus()
+                .equalsIgnoreCase("Diambil")) {
 
             System.out.println(
                     "Struk hanya dapat dicetak "
@@ -564,8 +765,8 @@ public class Menu {
 
         t.cetak();
     }
-
-    private String inputNama(String pesan) {
+    private String inputNama(
+            String pesan) {
 
         while (true) {
 
@@ -603,7 +804,8 @@ public class Menu {
         }
     }
 
-    private String inputTelepon(String pesan) {
+    private String inputTelepon(
+            String pesan) {
 
         while (true) {
 
@@ -612,7 +814,8 @@ public class Menu {
             String nomor =
                     input.nextLine().trim();
 
-            if (!nomor.matches("08\\d{8,11}")) {
+            if (!nomor.matches(
+                    "08\\d{8,11}")) {
 
                 System.out.println(
                         "Nomor telepon harus diawali 08 "
@@ -625,9 +828,8 @@ public class Menu {
             return nomor;
         }
     }
-
-
-    private String inputAlamat(String pesan) {
+    private String inputAlamat(
+            String pesan) {
 
         while (true) {
 
@@ -638,7 +840,8 @@ public class Menu {
 
             if (alamat.length() < 5
                     || alamat.length() > 100
-                    || !alamat.matches(".*[\\p{L}].*")) {
+                    || !alamat.matches(
+                            ".*[\\p{L}].*")) {
 
                 System.out.println(
                         "Alamat harus 5-100 karakter "
@@ -651,7 +854,6 @@ public class Menu {
             return alamat;
         }
     }
-
 
     private String inputTeks(
             String pesan,
@@ -666,7 +868,8 @@ public class Menu {
 
             if (teks.length() < 2
                     || teks.length() > 30
-                    || !teks.matches(".*[\\p{L}].*")) {
+                    || !teks.matches(
+                            ".*[\\p{L}].*")) {
 
                 System.out.println(
                         jenis
@@ -680,8 +883,6 @@ public class Menu {
             return teks;
         }
     }
-
-
     private int inputPilihan(
             int minimum,
             int maksimum,
@@ -732,7 +933,6 @@ public class Menu {
             }
         }
     }
-
     private String inputKonfirmasi(
             String pesan) {
 
