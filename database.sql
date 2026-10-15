@@ -1,17 +1,10 @@
 
--- =====================================================
--- DATABASE MINPRO 4
--- SISTEM MANAJEMEN JASA CUCI SEPATU
--- =====================================================
 
 CREATE DATABASE IF NOT EXISTS jasa_cuci_sepatu;
 
 USE jasa_cuci_sepatu;
 
 
--- =====================================================
--- TABEL PELANGGAN
--- =====================================================
 
 CREATE TABLE IF NOT EXISTS pelanggan (
     id_pelanggan VARCHAR(10) PRIMARY KEY,
@@ -22,9 +15,6 @@ CREATE TABLE IF NOT EXISTS pelanggan (
 );
 
 
--- =====================================================
--- TABEL SEPATU
--- =====================================================
 
 CREATE TABLE IF NOT EXISTS sepatu (
     id_sepatu VARCHAR(10) PRIMARY KEY,
@@ -34,9 +24,6 @@ CREATE TABLE IF NOT EXISTS sepatu (
 );
 
 
--- =====================================================
--- TABEL TRANSAKSI
--- =====================================================
 
 CREATE TABLE IF NOT EXISTS transaksi (
     id_transaksi VARCHAR(10) PRIMARY KEY,
@@ -57,9 +44,6 @@ CREATE TABLE IF NOT EXISTS transaksi (
 );
 
 
--- =====================================================
--- DUMMY DATA PELANGGAN
--- =====================================================
 
 INSERT INTO pelanggan
 (id_pelanggan, nama, no_telepon, alamat, member)
@@ -68,9 +52,6 @@ VALUES
 ('PL002', 'Cala', '082345678901', 'Bontang', FALSE);
 
 
--- =====================================================
--- DUMMY DATA SEPATU
--- =====================================================
 
 INSERT INTO sepatu
 (id_sepatu, merek, warna, jenis)
@@ -78,10 +59,6 @@ VALUES
 ('SP001', 'Nike', 'Putih', 'Sneakers'),
 ('SP002', 'Dr. Martens', 'Hitam', 'Boots');
 
-
--- =====================================================
--- DUMMY DATA TRANSAKSI
--- =====================================================
 
 INSERT INTO transaksi
 (
