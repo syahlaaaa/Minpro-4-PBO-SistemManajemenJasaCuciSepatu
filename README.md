@@ -173,15 +173,35 @@ PreparedStatement digunakan untuk menjalankan query SQL dengan parameter sehingg
 <img width="757" height="717" alt="image" src="https://github.com/user-attachments/assets/50b1c76f-ed64-4200-9418-c28917107534" />
 
 # 9. Rancangan Database
+### 📋 1. Tabel Pelanggan (`pelanggan`)
 
-1. Tabel Pelanggan (pelanggan)
+| Data | Keterangan |
+|:---|:---|
+| 🆔 `id_pelanggan` | `VARCHAR(10)` — Primary Key |
+| 👤 `nama` | `VARCHAR(50)` — Nama pelanggan |
+| 📞 `no_telepon` | `VARCHAR(15)` — Nomor telepon pelanggan |
+| 🏠 `alamat` | `VARCHAR(100)` — Alamat pelanggan |
+| ⭐ `member` | `BOOLEAN` — Status keanggotaan pelanggan |
 
-+----------------+--------------------------------------+
-| Data           | Keterangan                           |
-+----------------+--------------------------------------+
-| id_pelanggan   | VARCHAR(10) - Primary Key            |
-| nama           | VARCHAR(50) - Nama pelanggan         |
-| no_telepon     | VARCHAR(15) - Nomor telepon          |
-| alamat         | VARCHAR(100) - Alamat pelanggan      |
-| member         | BOOLEAN - Status keanggotaan         |
-+----------------+--------------------------------------+
+### 👟 2. Tabel Sepatu (`sepatu`)
+
+| Data | Keterangan |
+|:---|:---|
+| 🆔 `id_sepatu` | `VARCHAR(10)` — Primary Key |
+| 🏷️ `merek` | `VARCHAR(50)` — Merek sepatu |
+| 🎨 `warna` | `VARCHAR(30)` — Warna sepatu |
+| 👟 `jenis` | `VARCHAR(30)` — Jenis sepatu |
+
+### 🧾 3. Tabel Transaksi (`transaksi`)
+
+| Data | Keterangan |
+|:---|:---|
+| 🆔 `id_transaksi` | `VARCHAR(10)` — Primary Key |
+| 👤 `id_pelanggan` | `VARCHAR(10)` — Foreign Key |
+| 👟 `id_sepatu` | `VARCHAR(10)` — Foreign Key |
+| 🧼 `jenis_layanan` | `VARCHAR(30)` — Jenis layanan |
+| 💰 `harga` | `INT` — Harga layanan |
+| 📅 `tanggal` | `VARCHAR(20)` — Tanggal transaksi |
+| 🎁 `promo` | `VARCHAR(30)` — Informasi promo |
+| 🔖 `persentase_diskon` | `INT` — Persentase diskon |
+| 📌 `status` | `VARCHAR(20)` — Status transaksi |
