@@ -275,6 +275,7 @@ Admin memiliki akses untuk mengelola transaksi jasa cuci sepatu, meliputi:
 - Menghapus transaksi.
 
 - Mencetak struk transaksi.
+
 🧾 B. Kasir
 
 Kasir memiliki akses untuk menjalankan kegiatan operasional, meliputi:
@@ -285,12 +286,14 @@ Kasir memiliki akses untuk menjalankan kegiatan operasional, meliputi:
 
 - Mencetak struk transaksi.
 
+
 🔐 C. Informasi Login
 
 Gunakan akun yang telah ditentukan pada source code program untuk masuk ke aplikasi. Username dan password harus sesuai dengan konfigurasi login yang digunakan.
 
 
 # 11. Kesimpulan
+
 Program Sistem Manajemen Jasa Cuci Sepatu merupakan aplikasi berbasis Java yang dibuat untuk membantu pengelolaan data pelanggan, data sepatu, dan transaksi layanan cuci sepatu. Program ini menerapkan konsep Object-Oriented Programming (OOP), seperti encapsulation, inheritance, polymorphism, dan abstraction, serta menggunakan JDBC untuk menghubungkan aplikasi dengan database MySQL.
 
 Dengan adanya program ini, proses pengelolaan transaksi, pencarian data, perubahan status layanan, dan pencetakan struk dapat dilakukan secara lebih terstruktur. Diharapkan program ini dapat mempermudah pengelolaan jasa cuci sepatu dan menjadi sarana penerapan materi Pemrograman Berorientasi Objek dalam sebuah studi kasus nyata.
